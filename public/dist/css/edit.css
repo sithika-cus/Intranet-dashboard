@@ -1,0 +1,162 @@
+/* Sidebar hover */
+.skin-blue .sidebar-menu > li > a:hover {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+/* Active menu */
+.skin-blue .sidebar-menu > li.active > a {
+  background-color: #59515E;
+  color: #ffffff;
+}
+/* Fix sidebar active item side gap */
+.sidebar-menu > li.active > a {
+    padding-left: 10px;  /* match other menu items */
+    padding-right: 10px; /* optional */
+}
+/* Hide logo completely */
+.main-header .logo {
+    display: none;
+}
+
+/* Navbar stretches full width */
+.main-header .navbar {
+    margin-left: 0;
+}
+
+/* Sidebar aligns to left edge */
+.main-sidebar {
+    margin-left: 0;
+}
+/* table base */
+.pub-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    margin: 12px 0;
+}
+
+/* header */
+.pub-table thead th {
+    background: #f4f6f9;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 14px;
+    border-bottom: 2px solid #e4e7ed;
+}
+/* body cells */
+.pub-table tbody td {
+    padding: 11px 14px;
+    font-size: 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #eef1f5;
+}
+
+/* row hover */
+.pub-table tbody tr:hover {
+    background-color: #f9fafc;
+}
+
+/* remove harsh borders */
+.pub-table.table-bordered > tbody > tr > td,
+.pub-table.table-bordered > thead > tr > th {
+    border-left: none;
+    border-right: none;
+}
+/* ===============================
+   DataTables Controls
+   =============================== */
+
+
+/* search box */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 6px;
+    border: 1px solid #d2d6de;
+    padding: 6px 10px;
+    background: #fff;
+}
+
+/* entries select */
+.dataTables_wrapper select {
+    border-radius: 6px;
+    border: 1px solid #d2d6de;
+    padding: 5px 8px;
+    background: #fff;
+}
+
+/* info + pagination */
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* pagination buttons */
+.dataTables_wrapper .paginate_button {
+    padding: 6px 12px !important;
+    margin: 0 2px;
+    border-radius: 6px;
+    border: 1px solid #d2d6de;
+    background: #ffffff;
+    color: #444 !important;
+}
+
+/* active page */
+.dataTables_wrapper .paginate_button.current {
+    background: #3c8dbc !important;
+    color: #ffffff !important;
+    border-color: #3c8dbc;
+}
+
+/* disabled buttons */
+.dataTables_wrapper .paginate_button.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Modern Table Buttons
+   ========================= */
+
+/* Base style for all table buttons */
+.pub-table .btn {
+    background-color: #e0e0e0; /* light gray */
+    color: #333; /* dark text */
+    border: none;
+    
+}
+
+/* Hover effect */
+.pub-table .btn:hover {
+    background-color: #d5d5d5; /* slightly darker on hover */
+    color: #000;
+}
+.box.box-primary {
+    min-height: 600px;
+}
+.pub-table {
+    margin-top: 30px;
+    margin-bottom: 70px;
+    border: none;
+}
+.box-body.table-responsive {
+    padding: 20px; /* this will separate table from the container borders */
+}
+
+/* Fix AdminLTE + DataTables spacing issue */
+.datatable-fix .dataTables_wrapper .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.datatable-fix .dataTables_wrapper .dataTable {
+    margin-top: 15px !important;
+}
+
+.datatable-fix .dataTables_info,
+.datatable-fix .dataTables_paginate {
+    margin-top: 15px;
+}
