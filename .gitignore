@@ -1,0 +1,2 @@
+# Ignore CodeIgniter debugbar JSON logs
+/writable/debugbar/*.json
