@@ -7,6 +7,9 @@ use App\Models\NcdsModel;
 use App\Models\VcdsModel;
 use App\Models\OrdinanceModel;
 use App\Models\LUploadsModel;
+use App\Models\AGadvicesModel;
+use App\Models\CUploadsModel;
+use App\Models\CDetectionsModel;
 
 class Publications extends BaseController
 {
@@ -63,7 +66,41 @@ class Publications extends BaseController
 
     return view('publications/l_uploads', $data);
 }
+    
+    public function aGadvices()
+{
+    $model = new AGadvicesModel();
 
+    $data['agadvices'] = $model
+        ->orderBy('date', 'DESC')
+        ->findAll();
+
+    return view('publications/ag_advices', $data);
+}
+    
+    public function cUploads()
+{
+    $model = new CUploadsModel();
+
+    $data['cu'] = $model
+        ->orderBy('id', 'DESC')
+        ->findAll();
+
+    return view('publications/c_uploads', $data);
+}
+    
+    public function cDetections()
+{
+    $model = new CDetectionsModel();
+
+    $data['cusdet'] = $model
+        ->orderBy('date_modified', 'DESC')
+        ->findAll();
+
+    return view('publications/c_detections', $data);
+}   
+
+     
 
     public function update()
     {
@@ -76,6 +113,17 @@ class Publications extends BaseController
             'title' => $this->request->getPost('title'),
             'date' => $this->request->getPost('date'),
         ];
+
+        $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/dopl/', $newName);
+
+    $data['url'] = 'uploads/dopl/' . $newName;
+}
+
             
          $model->update($id, $data);
         
@@ -83,26 +131,6 @@ class Publications extends BaseController
         'status' => 'success'
     ]);
     }
-
-    public function upload()
-{
-    $model = new DoplModel();
-
-    $id = $this->request->getPost('id');
-    $file = $this->request->getFile('file');
-
-    if ($file && $file->isValid()) {
-
-        $newName = $file->getRandomName();
-        $file->move('uploads/dopl', $newName);
-
-        $model->update($id, [
-            'url' => base_url('uploads/dopl/' . $newName)
-        ]);
-    }
-
-    return $this->response->setJSON(['status' => 'success']);
-}
 
 public function add()
 {
@@ -143,30 +171,20 @@ public function add()
         'date'  => $this->request->getPost('date'),
     ];
 
+    $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/ncds/', $newName);
+
+    $data['url'] = 'uploads/ncds/' . $newName;
+}
+
     $model->update($id, $data);
 
     return $this->response->setJSON(['status' => 'success']);
 }
-public function uploadNc()
-{
-    $model = new \App\Models\NcdsModel();
-
-    $id   = $this->request->getPost('id');
-    $file = $this->request->getFile('file');
-
-    if ($file && $file->isValid()) {
-        $newName = $file->getRandomName();
-        $file->move('uploads/ncds', $newName);
-
-        $model->update($id, [
-            'url' => base_url('uploads/ncds/' . $newName),
-            'date_modified' => date('Y-m-d')
-        ]);
-    }
-
-    return $this->response->setJSON(['status' => 'success']);
-}
-
 
    public function deleteNc()
 {
@@ -206,30 +224,21 @@ public function updateVc()
         'date'  => $this->request->getPost('date'),
     ];
 
+    $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/vcds/', $newName);
+
+    $data['url'] = 'uploads/vcds/' . $newName;
+}
+
+
     $model->update($id, $data);
 
     return $this->response->setJSON(['status' => 'success']);
 }
-public function uploadVc()
-{
-    $model = new \App\Models\VcdsModel();
-
-    $id   = $this->request->getPost('id');
-    $file = $this->request->getFile('file');
-
-    if ($file && $file->isValid()) {
-        $newName = $file->getRandomName();
-        $file->move('uploads/vcds', $newName);
-
-        $model->update($id, [
-            'url' => base_url('uploads/vcds/' . $newName),
-            'date_modified' => date('Y-m-d')
-        ]);
-    }
-
-    return $this->response->setJSON(['status' => 'success']);
-}
-
 
    public function deleteVc()
 {
@@ -270,30 +279,21 @@ public function updateC()
     'section_desc' => $this->request->getPost('section_desc'),
 ];
 
+   $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/c_ordinance/', $newName);
+
+    $data['url'] = 'uploads/c_ordinance/' . $newName;
+}
+
+
     $model->update($id, $data);
 
     return $this->response->setJSON(['status' => 'success']);
 }
-public function uploadC()
-{
-    $model = new \App\Models\OrdinanceModel();
-
-    $id   = $this->request->getPost('id');
-    $file = $this->request->getFile('file');
-
-    if ($file && $file->isValid()) {
-        $newName = $file->getRandomName();
-        $file->move('uploads/c_ordinance', $newName);
-
-        $model->update($id, [
-            'url' => base_url('uploads/c_ordinance/' . $newName),
-            'date_modified' => date('Y-m-d')
-        ]);
-    }
-
-    return $this->response->setJSON(['status' => 'success']);
-}
-
 
    public function deleteC()
 {
@@ -335,31 +335,21 @@ public function updateL()
     'title'   => $this->request->getPost('title'),
     
 ];
+  $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/l_uploads/', $newName);
+
+    $data['url'] = 'uploads/l_uploads/' . $newName;
+}
+
 
     $model->update($id, $data);
 
     return $this->response->setJSON(['status' => 'success']);
 }
-public function uploadL()
-{
-    $model = new \App\Models\LUploadsModel();
-
-    $id   = $this->request->getPost('id');
-    $file = $this->request->getFile('file');
-
-    if ($file && $file->isValid()) {
-        $newName = $file->getRandomName();
-        $file->move('uploads/l_uploads', $newName);
-
-        $model->update($id, [
-            'url' => base_url('uploads/l_uploads/' . $newName),
-            'date_modified' => date('Y-m-d')
-        ]);
-    }
-
-    return $this->response->setJSON(['status' => 'success']);
-}
-
 
    public function deleteL()
 {
@@ -388,4 +378,182 @@ public function addL()
 
     return $this->response->setJSON(['status' => 'success']);
 }
+
+public function updateAg()
+{
+    $model = new AGadvicesModel();
+
+    $id = $this->request->getPost('id');
+
+    $data = [
+    
+    'attorny_gen_ref'    => $this->request->getPost('attorny_gen_ref'),
+    'cus_ref'    => $this->request->getPost('cus_ref'),
+    'title'   => $this->request->getPost('title'),
+    
+];
+  $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/ag_advices/', $newName);
+
+    $data['url'] = 'uploads/ag_advices/' . $newName;
+}
+
+
+    $model->update($id, $data);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+
+
+   public function deleteAg()
+{
+    $model = new AGadvicesModel();
+    $id = $this->request->getPost('id');
+
+    $model->delete($id);
+
+    return $this->response->setJSON([
+        'status' => 'success'
+    ]);
+}
+
+public function addAg()
+{
+    $model = new AGadvicesModel();
+
+    $data = [
+    
+    'attorny_gen_ref'    => $this->request->getPost('attorny_gen_ref'),
+    'cus_ref'    => $this->request->getPost('cus_ref'),
+    'date'   => $this->request->getPost('date'),
+    'title'   => $this->request->getPost('title'),
+    
+];
+
+    $model->insert($data);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+public function updateCu()
+{
+    $model = new CUploadsModel();
+
+    $id = $this->request->getPost('id');
+
+    $data = [
+    
+    'date_modified'    => $this->request->getPost('date_modified'),
+    'title'   => $this->request->getPost('title'),
+    'document_name'   => $this->request->getPost('document_name'),
+    
+];
+
+   $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/c_uploads/', $newName);
+
+    $data['file_link'] = 'uploads/c_uploads/' . $newName;
+}
+
+    $model->update($id, $data);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+
+
+   public function deleteCu()
+{
+    $model = new CUploadsModel();
+    $id = $this->request->getPost('id');
+
+    $model->delete($id);
+
+    return $this->response->setJSON([
+        'status' => 'success'
+    ]);
+}
+
+public function addCu()
+{
+    $model = new CUploadsModel();
+
+    $data = [
+    
+    'date_modified'    => $this->request->getPost('date_modified'),
+    'title'   => $this->request->getPost('title'),
+    
+];
+
+    $model->insert($data);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+public function updateCd()
+{
+    $model = new \App\Models\CDetectionsModel();
+
+    $id = $this->request->getPost('id');
+    $data = [
+        'title'         => $this->request->getPost('title'),
+        'document_name' => $this->request->getPost('document_name'),
+        'date_modified' => $this->request->getPost('date_modified'),
+    ];
+    
+    $file = $this->request->getFile('file');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = $file->getRandomName();
+    $file->move('uploads/c_detections/', $newName);
+
+    $data['file_link'] = 'uploads/c_detections/' . $newName;
+}
+    
+    $model->update($id, $data);
+    
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+
+
+   public function deleteCd()
+{
+    $model = new CDetectionsModel();
+    $id = $this->request->getPost('id');
+
+    $model->delete($id);
+
+    return $this->response->setJSON([
+        'status' => 'success'
+    ]);
+}
+
+public function addCd()
+{
+    $model = new CDetectionsModel();
+
+    $data = [
+    
+   'title'         => $this->request->getPost('title'),
+        'document_name' => $this->request->getPost('document_name'),
+        'date_modified' => $this->request->getPost('date_modified'),
+];
+
+    $model->insert($data);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+
 }

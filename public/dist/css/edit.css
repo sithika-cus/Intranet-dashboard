@@ -160,3 +160,10 @@
 .datatable-fix .dataTables_paginate {
     margin-top: 15px;
 }
+
+.filepond {
+  visibility: hidden;  /* hide initially */
+}
+.filepond--root {
+  visibility: visible; /* FilePond container becomes visible */
+}
