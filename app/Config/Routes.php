@@ -7,6 +7,53 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Dashboard::index');
 $routes->get('dashboard', 'Dashboard::index'); 
+$routes->get('dashboard/index', 'Dashboard::index');
+$routes->get('dashboard_cards/indexOne', 'Dashboard::indexOne');
+// Wall / Socket routes
+$routes->get('wall/page', 'Socket::index');
+$routes->get('wall',      'Wall::index');
+$routes->post('wall/create', 'Wall::create');
+$routes->post('wall/delete/(:num)', 'Wall::delete/$1');
+$routes->post('wall/delete', 'Wall::delete');
+$routes->post('wall/like',   'Wall::like');
+$routes->get('wall/comments',          'Wall::getComments');
+$routes->post('wall/comments/add',     'Wall::addComment');
+$routes->post('wall/comments/delete',  'Wall::deleteComment');
+
+$routes->get('wall/posts', 'Wall::getPosts');
+
+// Auth routes — must be first
+$routes->get('login',  'Auth::index');
+$routes->post('login', 'Auth::login');
+$routes->get('logout', 'Auth::logout');
+
+// Groups
+$routes->get('groups',                        'Groups::index');
+$routes->get('groups/(:num)/posts', 'Groups::getPosts/$1');
+
+$routes->get('groups/feed/(:num)',            'Groups::feed/$1');
+$routes->post('groups/create',               'Groups::create');
+$routes->post('groups/join/(:num)',          'Groups::requestJoin/$1');
+$routes->post('groups/approve/(:num)/(:num)', 'Groups::approve/$1/$2');
+$routes->post('groups/reject/(:num)/(:num)',  'Groups::reject/$1/$2');
+$routes->get('groups/api',                   'Groups::apiGroups');
+
+// Group posts
+$routes->post('groups/(:num)/posts',              'Groups::createPost/$1');
+$routes->post('groups/posts/delete/(:num)',       'Groups::deletePost/$1');
+$routes->post('groups/posts/like/(:num)',         'Groups::likePost/$1');
+$routes->get('groups/posts/comments/(:num)',      'Groups::getComments/$1');
+$routes->post('groups/posts/comments/add/(:num)', 'Groups::addComment/$1');
+$routes->post('groups/posts/comments/delete/(:num)', 'Groups::deleteComment/$1');
+
+$routes->post('groups/delete/(:num)', 'Groups::delete/$1');
+
+$routes->get('action-permissions',              'ActionPermissions::index');
+$routes->post('action-permissions/save/(:num)', 'ActionPermissions::save/$1');
+
+$routes->get('wall/comments/replies',           'Wall::getReplies');
+$routes->get('groups/comments/(:num)/replies',  'Groups::getReplies/$1');
+
 $routes->get('publications/departmentalOrders', 'Publications::departmentalOrders');
 $routes->get('publications/ncCommittee', 'Publications::ncCommittee');
 $routes->get('publications/vcDecisions', 'Publications::vcDecisions');

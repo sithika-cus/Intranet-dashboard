@@ -1,2 +1,13 @@
-# Ignore CodeIgniter debugbar JSON logs
+# CodeIgniter writable folder (ignore all)
+writable/
+
+# Environment file (important)
+.env
+
+# Node modules
+node_modules/
+
+# OS / editor files
+.DS_Store
+Thumbs.db# Ignore CodeIgniter debugbar JSON logs
 /writable/debugbar/*.json

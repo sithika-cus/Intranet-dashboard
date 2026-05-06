@@ -6,6 +6,9 @@ function initPubTable(startPage = 0) {
 
     if (!$table.length) return;
 
+    // Guard: if DataTables plugin isn't available, skip
+    if (typeof $.fn.DataTable === 'undefined') return;
+
     if ($.fn.DataTable.isDataTable($table)) {
         $table.DataTable().destroy();
     }
@@ -30,6 +33,13 @@ function getCurrentPage() {
 
 function reloadTable() {
     let page = getCurrentPage();
+
+    // Disconnect wall socket if it exists before loading another page
+    if (window.wallSocket) {
+        window.wallSocket.disconnect();
+        window.wallSocket = null;
+    }
+    
     $('#content-area').load(currentPageUrl, function() {
         initPubTable(page);
     });
@@ -46,3 +56,19 @@ $(document).on('click', '.load-page', function(e){
 $(document).on('show.bs.modal', '.modal', function () {
     $(this).appendTo('body');
 });
+
+// =========================
+// Calendar initialization
+// =========================
+$(document).ready(function(){
+    $('#calendar').datetimepicker({
+        timepicker: false,      // Only show dates
+        inline: true,           // Always visible
+        format: 'Y-m-d',        // Date format
+        scrollMonth: false,     // Disable month scroll, only arrows
+        scrollInput: false      // Disable input scroll
+    });
+});
+
+$('body').addClass('sidebar-collapse');
+$('body').removeClass('sidebar-collapse');

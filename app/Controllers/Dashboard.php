@@ -8,4 +8,9 @@ class Dashboard extends BaseController
         // Load the dashboard view
         return view('dashboard');
     }
+    public function indexOne()
+    {
+        // Load the dashboard view
+        return view('dashboard_cards');
+    }
 }

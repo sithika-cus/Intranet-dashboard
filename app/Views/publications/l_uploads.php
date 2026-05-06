@@ -1,7 +1,19 @@
 <section class="content-header">
-	<h1>Legal Uploads</h1>
-</section>
+  <h1>
+    <span class="material-icons" style="vertical-align:middle;">list_alt</span>
+    Judgements
+  </h1>
 
+  <ol class="breadcrumb">
+    <li>
+      <a href="#" class="load-page" data-url="<?= base_url('wall/page') ?>">
+        <i class="fa fa-dashboard"></i> Dashboard
+      </a>
+    </li>
+    <li>Publications</li>
+    <li class="active">Judgements</li>
+  </ol>
+</section>
 <section class="content">
 <div class="box box-primary">
 <div class="box-body table-responsive">
@@ -25,7 +37,7 @@
     <td><?= esc($row['date']) ?></td>
     <td><?= esc($row['title']) ?></td>
     <td class="text-center">
-        <?php if (!empty($row['url'])): ?>
+        <?php if(!empty($row['url']) && ($isAdmin || !empty($perms['can_view']))): ?>
         <a href="<?= esc($row['url']) ?>" 
            target="_blank"
            class="btn btn-xs btn-success">
@@ -33,6 +45,7 @@
         </a>
     <?php endif; ?>
 
+    <?php if($isAdmin || !empty($perms['can_edit'])): ?>
     <button class="btn btn-xs btn-warning edit-l-btn"
     data-id="<?= esc($row['id']) ?>"
     data-date="<?= esc($row['date']) ?>"
@@ -40,12 +53,15 @@
     data-url="<?= esc($row['url']) ?>">
     <i class="fa fa-pencil"></i>
 </button>
+<?php endif; ?>
 
-
+    <?php if($isAdmin || !empty($perms['can_delete'])): ?>
     <button class="btn btn-xs btn-danger delete-l-btn"
     data-id="<?= $row['id'] ?>">
     <i class="fa fa-trash"></i>
 </button>
+<?php endif; ?>
+
 </td>
 </tr>
 
@@ -53,9 +69,12 @@
 </tbody>
 </table>
 </div>
+
+<?php if($isAdmin || !empty($perms['can_add'])): ?>
 <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#addLModal">
             <i class="fa fa-plus"></i>
         </button>
+        <?php endif; ?>
 </div>
 </div>       
 

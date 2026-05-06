@@ -18,7 +18,7 @@ public function wRoasters()
         ->orderBy('date', 'DESC')
         ->findAll();
 
-    return view('rosters/w_rosters', $data);
+    return $this->respondView('rosters/w_rosters', $data);
 }
 
 public function aRosters()
@@ -29,7 +29,7 @@ public function aRosters()
         ->orderBy('date', 'DESC')
         ->findAll();
 
-    return view('rosters/a_roster', $data);
+    return $this->respondView('rosters/a_roster', $data);
 }
 
 public function ascRosters()
@@ -40,7 +40,7 @@ public function ascRosters()
         ->orderBy('date', 'DESC')
         ->findAll();
 
-    return view('rosters/a_roster_sc', $data);
+    return $this->respondView('rosters/a_roster_sc', $data);
 }
 
 public function aTransfer()

@@ -16,8 +16,11 @@
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="<?= base_url('plugins/datatables/DataTables/datatables.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/filepond/filepond.min.css') ?>">
+  
+  <!-- jQuery DateTimePicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 
-</head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -25,48 +28,74 @@
   <!-- Main Header -->
   <header class="main-header">
     <nav class="navbar navbar-static-top">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Sri Lanka Customs Intranet</a>
-        </div>
-    </nav>
+  <div class="navbar-header">
+    
+    <a class="navbar-brand" href="#">Sri Lanka Customs Intranet</a>
+  </div>
+
+  <!-- ADD THIS -->
+  <div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="#" style="color:#fff; padding:15px;">
+          <i class="fa fa-user-circle"></i>
+          <?= session()->get('full_name') ?? 'Guest' ?>
+          <?php if(session()->get('role') === 'admin'): ?>
+            <span class="label label-danger" style="margin-left:4px;">Admin</span>
+          <?php endif; ?>
+        </a>
+      </li>
+      <li>
+        <a href="<?= base_url('logout') ?>" style="color:#fff; padding:15px;">
+          <i class="fa fa-sign-out"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+
   </header>
 
   <!-- Sidebar -->
-  <aside class="main-sidebar">
+  <!-- <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li><a href="#" class="load-page" data-url="<?= base_url('') ?>">Dashboard</a></li>
+        <li><a href="#" class="load-page" data-url="<?= base_url('wall/page') ?>">
+    <i class="fa fa-tachometer"></i> <span>Dashboard</span>
+</a>
+      </li>
         <li class="treeview">
             <a href="#">
-                <span>Publications</span>
+                <i class="fa fa-book"></i> <span>Publications</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
                 <li>
-                  <a href="#" class="load-page" data-url="<?= base_url('publications/departmentalOrders') ?>">
+                  <a href="#" class="load-page" data-url="<?= base_url('publications/departmentalOrders') ?>"><i class="fa fa-file-text-o"></i>
                     Departmental Orders
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="load-page" data-url="<?= base_url('publications/ncCommittee') ?>">
+                  <a href="#" class="load-page" data-url="<?= base_url('publications/ncCommittee') ?>"><i class="fa fa-file-text-o"></i>
                     NC Commitee Decisions
                   </a>
                 </li>
                 <li>
-                    <a href="#" class="load-page" data-url="<?= base_url('publications/vcDecisions') ?>">
+                    <a href="#" class="load-page" data-url="<?= base_url('publications/vcDecisions') ?>"><i class="fa fa-file-text-o"></i>
                     Valuation Committee Decisions
                     </a>
                     </li>  
                 <li>
-                <a href="#" class="load-page" data-url="<?= base_url('publications/cOrdinance') ?>">
+                <a href="#" class="load-page" data-url="<?= base_url('publications/cOrdinance') ?>"><i class="fa fa-file-text-o"></i>
     Customs Ordinance
 </a>
 </li>
 <li class="treeview">
       <a href="#">
-        <i class="fa fa-legal"></i>
+        <i class="fa fa-file-text-o"></i>
         <span>Legal Uploads</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
@@ -74,13 +103,13 @@
       </a>
               <ul class="treeview-menu">
                 <li>
-                    <a href="#" class="load-page" data-url="<?= base_url('publications/lUploads') ?>">
+                    <a href="#" class="load-page" data-url="<?= base_url('publications/lUploads') ?>"><i class="fa fa-gavel"></i>
     Judgements
 </a>
 
 </li>      
 <li>
-                    <a href="#" class="load-page" data-url="<?= base_url('publications/aGadvices') ?>">
+                    <a href="#" class="load-page" data-url="<?= base_url('publications/aGadvices') ?>"><i class="fa fa-file-text-o"></i>
     AG Advices
 </a>
 
@@ -88,12 +117,12 @@
             </ul>
         </li>
          <li>
-                  <a href="#" class="load-page" data-url="<?= base_url('publications/cUploads') ?>">
+                  <a href="#" class="load-page" data-url="<?= base_url('publications/cUploads') ?>"><i class="fa fa-file-text-o"></i>
                     Common Uploads
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="load-page" data-url="<?= base_url('publications/cDetections') ?>">
+                  <a href="#" class="load-page" data-url="<?= base_url('publications/cDetections') ?>"><i class="fa fa-file-text-o"></i>
                     Customs Detections
                   </a>
                 </li>
@@ -105,19 +134,19 @@
 
       <li class="treeview">
   <a href="#">
-    <span>Commodity Classification</span>
+    <i class="fa fa-cubes"></i> <span>Commodity Classification</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('cclassification/advanceRuiling') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('cclassification/advanceRuiling') ?>"><i class="fa fa-file-text-o"></i>
         Advance Ruiling
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('cclassification/internalRuiling') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('cclassification/internalRuiling') ?>"><i class="fa fa-file-text-o"></i>
         Internal Ruiling
       </a>
     </li>
@@ -126,20 +155,20 @@
 
 <li class="treeview">
   <a href="#">
-    <span>Rosters</span>
+    <i class="fa fa-users"></i> <span>Rosters</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('rosters/wRoasters') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('rosters/wRoasters') ?>"><i class="fa fa-file-text-o"></i>
         Warehouse (ASC)
       </a>
     </li>
 
     <li class="treeview">
-  <a href="#">
+  <a href="#"><i class="fa fa-file-text-o"></i>
     <span>SO</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
@@ -159,7 +188,7 @@
   </ul>
 </li>
 <li class="treeview">
-  <a href="#">
+  <a href="#"><i class="fa fa-file-text-o"></i>
     <span>SC</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
@@ -180,7 +209,7 @@
 </li>
 
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('rosters/aTransfer') ?>"> Appraiser
+      <a href="#" class="load-page" data-url="<?= base_url('rosters/aTransfer') ?>"> <i class="fa fa-file-text-o"></i>Appraiser
         
       </a>
     </li>
@@ -189,29 +218,29 @@
 
 <li class="treeview">
   <a href="#">
-    <span>Transfers</span>
+    <i class="fa fa-exchange"></i> <span>Transfers</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('transfers/ddcTransfers') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('transfers/ddcTransfers') ?>"><i class="fa fa-file-text-o"></i>
         DDC Transfers
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('transfers/scTransfers') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('transfers/scTransfers') ?>"><i class="fa fa-file-text-o"></i>
          SC Transfers
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('transfers/apTransfers') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('transfers/apTransfers') ?>"><i class="fa fa-file-text-o"></i>
          Appraiser Transfers
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('transfers/ascTransfers') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('transfers/ascTransfers') ?>"><i class="fa fa-file-text-o"></i>
          ASC & DSC Transfers
       </a>
     </li>
@@ -220,91 +249,78 @@
 
   <li class="treeview">
   <a href="#">
-    <span>Training Programs</span>
+    <i class="fa fa-graduation-cap"></i> <span>Training Programs</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('trainings/fTrainings') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('trainings/fTrainings') ?>"><i class="fa fa-file-text-o"></i>
         Foreign Training Programs
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('trainings/') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('trainings/') ?>"><i class="fa fa-file-text-o"></i>
          Local Training Programs
       </a>
     </li>
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('trainings/tMaterials') ?>">
+      <a href="#" class="load-page" data-url="<?= base_url('trainings/tMaterials') ?>"><i class="fa fa-file-text-o"></i>
          Training Materials
       </a>
     </li>
     
   </ul>
 </li>
-<li><a href="#" class="load-page" data-url="<?= base_url('comtemplates/cTemplates') ?>">Common Templates</a></li>
+<li><a href="#" class="load-page" data-url="<?= base_url('comtemplates/cTemplates') ?>"><i class="fa fa-file"></i> <span>Common Templates</span></a></li>
 
   <li class="treeview">
   <a href="#">
-    <span>Notifications</span>
+    <i class="fa fa-bell"></i> <span>Notifications</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#" class="load-page" data-url="<?= base_url('comtemplates/iNotifications') ?>">Intranet Notifications
+      <a href="#" class="load-page" data-url="<?= base_url('comtemplates/iNotifications') ?>"><i class="fa fa-file-text-o"></i>Intranet Notifications
         
       </a>
     </li>
     </ul>
 </li>
 
+ 
     </section>
-  </aside>
+  </aside> --> 
 
   <!-- Content Wrapper -->
   <div class="content-wrapper" id="main-content">
     <section class="content-header">
-      <h1>Dashboard</h1>
+      
     </section>
 
     <section class="content" id="content-area">
-      <div class="row">
-        <!-- DDC Transfers -->
-        <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>DOPL</h3>
-              <p>Departmental Orders</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-truck"></i>
-            </div>
-            <a href="#" 
-   class="small-box-footer load-page" 
-   data-url="<?= base_url('publications/departmentalOrders') ?>">
-  Go <i class="fa fa-arrow-circle-right"></i>
-</a>
-          </div>
-        </div>
-
+    <?= view('socket_test') ?>
+</section>
   
-    
 
 <!-- Scripts -->
 <script src="<?= base_url('plugins/jQuery/jquery-3.6.4.min.js') ?>"></script>
-<script src="<?= base_url('dist/js/bootstrap.min.js') ?>"></script>
-<script src="<?= base_url('dist/js/adminlte.min.js') ?>"></script>
 
 <!-- DataTables JS -->
 <script src="<?= base_url('plugins/datatables/DataTables/datatables.min.js') ?>"></script>
+<script src="<?= base_url('dist/js/bootstrap.min.js') ?>"></script>
+<script src="<?= base_url('dist/js/adminlte.min.js') ?>"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script> 
 
 <script src="<?= base_url('assets/filepond/filepond.min.js') ?>"></script>
 <script src="<?= base_url('assets/filepond/filepond-plugin-file-validate-type.min.js') ?>"></script>
 <script src="<?= base_url('assets/filepond/filepond-plugin-file-validate-size.min.js') ?>"></script>
+
+<!-- jQuery DateTimePicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 
 <script>
@@ -333,28 +349,27 @@
 <script src="<?= base_url('assets/js/ct.js') ?>"></script>
 <script src="<?= base_url('assets/js/in.js') ?>"></script>
 
-<?php include 'modals/cd_modals.php'; ?>
-<?php include 'modals/cu_modals.php'; ?>
-<?php include 'modals/ag_modals.php'; ?>
-<?php include 'modals/l_modals.php'; ?>
-<?php include 'modals/or_modals.php'; ?>
-<?php include 'modals/vc_modals.php'; ?>
-<?php include 'modals/nc_modals.php'; ?>
-<?php include 'modals/dopl_modals.php'; ?>
-<?php include 'modals/ar_modals.php'; ?>
-<?php include 'modals/ir_modals.php'; ?>
-<?php include 'modals/sc_modals.php'; ?>
-<?php include 'modals/ra_modals.php'; ?>
-<?php include 'modals/wr_modals.php'; ?>
-<?php include 'modals/ddc_modals.php'; ?>
-<?php include 'modals/sct_modals.php'; ?>
-<?php include 'modals/at_modals.php'; ?>
-<?php include 'modals/asc_modals.php'; ?>
-<?php include 'modals/ftp_modals.php'; ?>
-<?php include 'modals/tm_modals.php'; ?>
-<?php include 'modals/ct_modals.php'; ?>
-<?php include 'modals/in_modals.php'; ?>
-
+<?= view('modals/cd_modals') ?>
+<?= view('modals/cu_modals') ?>
+<?= view('modals/ag_modals') ?>
+<?= view('modals/l_modals') ?>
+<?= view('modals/or_modals') ?>
+<?= view('modals/vc_modals') ?>
+<?= view('modals/nc_modals') ?>
+<?= view('modals/dopl_modals') ?>
+<?= view('modals/ar_modals') ?>
+<?= view('modals/ir_modals') ?>
+<?= view('modals/sc_modals') ?>
+<?= view('modals/ra_modals') ?>
+<?= view('modals/wr_modals') ?>
+<?= view('modals/ddc_modals') ?>
+<?= view('modals/sct_modals') ?>
+<?= view('modals/at_modals') ?>
+<?= view('modals/asc_modals') ?>
+<?= view('modals/ftp_modals') ?>
+<?= view('modals/tm_modals') ?>
+<?= view('modals/ct_modals') ?>
+<?= view('modals/in_modals') ?>
 
 
 </body>

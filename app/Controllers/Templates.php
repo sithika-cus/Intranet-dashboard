@@ -14,7 +14,7 @@ class Templates extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('comtemplates/templates', $data);
+        return $this->respondView('comtemplates/templates', $data);
     }
 
     public function iNotifications()
@@ -24,7 +24,7 @@ class Templates extends BaseController
         ->orderBy('date_added', 'DESC')
         ->findAll();
 
-        return view('comtemplates/notifications', $data);
+        return $this->respondView('comtemplates/notifications', $data);
     }
 
 

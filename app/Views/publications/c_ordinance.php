@@ -1,7 +1,19 @@
 <section class="content-header">
-	<h1>Customs Ordinance</h1>
-</section>
+  <h1>
+    <span class="material-icons" style="vertical-align:middle;">list_alt</span>
+    Customs Ordinance
+  </h1>
 
+  <ol class="breadcrumb">
+    <li>
+      <a href="#" class="load-page" data-url="<?= base_url('wall/page') ?>">
+        <i class="fa fa-dashboard"></i> Dashboard
+      </a>
+    </li>
+    <li>Publications</li>
+    <li class="active">Customs Ordinance</li>
+  </ol>
+</section>
 <section class="content">
 <div class="box box-primary">
 <div class="box-body table-responsive">
@@ -27,7 +39,7 @@
     <td><?= esc($row['section_no']) ?></td>
     <td><?= esc($row['section_desc']) ?></td> 
     <td class="text-center">
-        <?php if (!empty($row['url'])): ?>
+        <?php if(!empty($row['url']) && ($isAdmin || !empty($perms['can_view']))): ?>
         <a href="<?= esc($row['url']) ?>" 
            target="_blank"
            class="btn btn-xs btn-success">
@@ -35,6 +47,8 @@
         </a>
     <?php endif; ?>
 
+
+        <?php if($isAdmin || !empty($perms['can_edit'])): ?>
         <button class="btn btn-xs btn-warning edit-c-btn"
     data-id="<?= $row['id'] ?>"
     data-part_no="<?= esc($row['part_no']) ?>"
@@ -44,11 +58,14 @@
     >
     <i class="fa fa-pencil"></i>
 </button>
+<?php endif; ?>
 
+    <?php if($isAdmin || !empty($perms['can_delete'])): ?>
     <button class="btn btn-xs btn-danger delete-c-btn"
     data-id="<?= $row['id'] ?>">
     <i class="fa fa-trash"></i>
 </button>
+<?php endif; ?>
 
     </td>
 </tr>
@@ -57,9 +74,12 @@
 </tbody>
 </table>
 </div>
+
+<?php if($isAdmin || !empty($perms['can_add'])): ?>
 <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#addCModal">
             <i class="fa fa-plus"></i>
         </button>
+        <?php endif; ?>
 </div>
 </div>       
 

@@ -14,7 +14,7 @@ class ComClassification extends BaseController
         ->orderBy('date_modified', 'DESC')
         ->findAll();
 
-        return view('cclassification/advanceruiling', $data);
+        return $this->respondView('cclassification/advanceruiling', $data);
     }
 
     public function internalRuiling()
@@ -24,7 +24,7 @@ class ComClassification extends BaseController
         ->orderBy('issue_date', 'DESC')
         ->findAll();
 
-        return view('cclassification/internalruiling', $data);
+        return $this->respondView('cclassification/internalruiling', $data);
     }
 
     public function updateAr()

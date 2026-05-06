@@ -16,7 +16,7 @@ class Transfers extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('transfers/ddc_transfers', $data);
+        return $this->respondView('transfers/ddc_transfers', $data);
     }
 
     public function scTransfers()
@@ -26,7 +26,7 @@ class Transfers extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('transfers/sc_transfers', $data);
+        return $this->respondView('transfers/sc_transfers', $data);
     }
 
     public function apTransfers()
@@ -36,7 +36,7 @@ class Transfers extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('transfers/ap_transfers', $data);
+        return $this->respondView('transfers/ap_transfers', $data);
     }
 
     public function ascTransfers()
@@ -46,7 +46,7 @@ class Transfers extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('transfers/asc_transfers', $data);
+        return $this->respondView('transfers/asc_transfers', $data);
     }
 
     public function updateDdct()

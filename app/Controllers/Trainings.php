@@ -15,7 +15,7 @@ class Trainings extends BaseController
         ->orderBy('date', 'DESC')
         ->findAll();
 
-        return view('trainings/f_trainings', $data);
+        return $this->respondView('trainings/f_trainings', $data);
     }
 
     public function tMaterials()
@@ -25,7 +25,7 @@ class Trainings extends BaseController
         ->orderBy('date_modified', 'DESC')
         ->findAll();
 
-        return view('trainings/t_materials', $data);
+        return $this->respondView('trainings/t_materials', $data);
     }
 
     public function updateFt()
